@@ -1,0 +1,45 @@
+PS C:\utils\xampp-win32-1.8.1-VC9\xampp\apache\bin> ./ab.exe -n 100 -c 100 http://127.0.0.1:3000/
+This is ApacheBench, Version 2.3 <$Revision: 1373084 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient).....done
+
+
+Server Software:
+Server Hostname:        127.0.0.1
+Server Port:            3000
+
+Document Path:          /
+Document Length:        4 bytes
+
+Concurrency Level:      100
+Time taken for tests:   282.302 seconds
+Complete requests:      100
+Failed requests:        0
+Write errors:           0
+Total transferred:      7900 bytes
+HTML transferred:       400 bytes
+Requests per second:    0.35 [#/sec] (mean)
+Time per request:       282302.000 [ms] (mean)
+Time per request:       2823.020 [ms] (mean, across all concurrent requests)
+Transfer rate:          0.03 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.3      0       1
+Processing:  2840 142542 81890.3 143949  282282
+Waiting:     2839 142542 81890.3 143949  282282
+Total:       2840 142542 81890.3 143949  282282
+
+Percentage of the requests served within a certain time (ms)
+  50%  143949
+  66%  189124
+  75%  214517
+  80%  228628
+  90%  256871
+  95%  270981
+  98%  279456
+  99%  282282
+ 100%  282282 (longest request)
+PS C:\utils\xampp-win32-1.8.1-VC9\xampp\apache\bin>
