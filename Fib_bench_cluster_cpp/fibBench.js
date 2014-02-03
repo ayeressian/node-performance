@@ -1,34 +1,23 @@
-var cluster = require('cluster');
+var cluster = require('cluster'),
+	numCPUs = require('os').cpus().length,
+	addon = require('./src/build/Release/fib'),
+	http = require('http'),
+	counter = 0, i, worker, FIB = 40;
 
 if (cluster.isMaster) {
-	(function() {				
-		var numCPUs = require('os').cpus().length,
-			reqCounter = 0, i, worker;
-	  	// Fork workers.
-		for (i = 0; i < numCPUs; i++) {
-			worker = cluster.fork();
-			worker.on('message',function(msg) {
-				if(msg.cmd && msg.cmd === 'notifyReq') {
-					reqCounter++;
-					console.log(reqCounter);					
-				}
-			});
-		}
-  		cluster.on('exit', function(worker, code, signal) {
-			console.log('worker ' + worker.process.pid + ' died');
+	for (i = 0; i < numCPUs; i++) {
+		worker = cluster.fork();
+		worker.on('message',function(msg) {
+			if(msg.cmd && msg.cmd === 'notifyReq') {
+				counter++;
+				console.log(counter);
+			}
 		});
-		
-	})();
+	}
 } else {
-	(function() {		
-		var addon = require('./build/Release/hello'),		
-			http = require('http');
-		// Workers can share any TCP connection
-		// In this case its a HTTP server
-		http.createServer(function(req, res) {
-			var result = addon.hello();
-			process.send({ cmd: 'notifyReq' });		
-			res.end();
-		}).listen(3000);
-	})();
+	http.createServer(function(req, res) {
+		var result = addon.fib(FIB);
+		process.send({ cmd: 'notifyReq' });
+		res.end(result.toString());
+	}).listen(4000);
 }

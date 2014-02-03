@@ -1,24 +1,19 @@
-var addon = require('./build/Release/hello'),
+var addon = require('./src/build/Release/fib'),
 	http = require('http'),
-	threadsAGogo = require('threads_a_gogo');
-
-var counter = 0;
-
-var numThreads = 5;
-
-function fib(){
-	debugger;
-	return addon.hello();
+	threadsAGogo = require('threads_a_gogo'),
+	counter = 0,
+	numCPUs = require('os').cpus().length,
+	FIB = 40,
+	threadPool= threadsAGogo.createPool(numCPUs).all.eval(fib);
+	
+function fib(n){
+	return addon.fib(n);
 }
 
-var threadPool= threadsAGogo.createPool(numThreads).all.eval(fib);
-
 http.createServer(function(req, res){
-	threadPool.any.eval('fib()', function cb(err, data){		
-		counter++;		
-		console.log(counter);		
-		res.end();
-	});		
-}).listen(3000, '127.0.0.1');
-
-
+	threadPool.any.eval('fib(' + FIB + ')', function cb(err, result){
+		counter++;
+		console.log(counter + '-' + result);
+		res.end(result);
+	});
+}).listen(4000);

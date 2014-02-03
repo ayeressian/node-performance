@@ -1,10 +1,11 @@
-var addon = require('./build/Release/hello');
-var http = require('http');
-var counter = 0;
+var addon = require('./src/build/Release/fib'),
+	http = require('http'),
+	counter = 0;
+	FIB = 40;
 
 http.createServer(function(req, res){
-	var result = addon.hello();
+	var result = addon.fib(FIB);
 	counter++;
 	console.log(counter);
-	res.end('done');
-}).listen(3000, '127.0.0.1');
+	res.end(result.toString());
+}).listen(4000);

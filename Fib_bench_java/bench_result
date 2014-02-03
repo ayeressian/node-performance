@@ -1,0 +1,84 @@
+Concurrency Level:      1000
+Time taken for tests:   0.218 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Non-2xx responses:      1000
+Total transferred:      1140000 bytes
+HTML transferred:       971000 bytes
+Requests per second:    4584.78 [#/sec] (mean)
+Time per request:       218.113 [ms] (mean)
+Time per request:       0.218 [ms] (mean, across all concurrent requests)
+Transfer rate:          5104.15 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    2   4.5      0      15
+Processing:     2   20  15.2     14     202
+Waiting:        1   19  13.9     14     202
+Total:          4   22  17.9     14     215
+
+Percentage of the requests served within a certain time (ms)
+  50%     14
+  66%     18
+  75%     20
+  80%     28
+  90%     55
+  95%     60
+  98%     63
+  99%     64
+ 100%    215 (longest request)
+ 
+ //////////////////////big///////////////////////////////
+ 
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Completed 1000 requests
+Finished 1000 requests
+
+
+Server Software:        Apache-Coyote/1.1
+Server Hostname:        localhost
+Server Port:            8080
+
+Document Path:          /java_benchs/big
+Document Length:        658792 bytes
+
+Concurrency Level:      1000
+Time taken for tests:   0.538 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      659018000 bytes
+HTML transferred:       658792000 bytes
+Requests per second:    1859.67 [#/sec] (mean)
+Time per request:       537.729 [ms] (mean)
+Time per request:       0.538 [ms] (mean, across all concurrent requests)
+Transfer rate:          1196833.84 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        2    8   5.8      4      19
+Processing:    56  142  31.0    143     193
+Waiting:        2   13  14.7      5      62
+Total:         61  149  32.3    151     211
+
+Percentage of the requests served within a certain time (ms)
+  50%    151
+  66%    164
+  75%    167
+  80%    178
+  90%    186
+  95%    195
+  98%    205
+  99%    208
+ 100%    211 (longest request)
+
+ 

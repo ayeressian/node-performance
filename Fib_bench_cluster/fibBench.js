@@ -1,29 +1,26 @@
-var cluster = require('cluster');
-var http = require('http');
-var numCPUs = require('os').cpus().length;
-
-var FIB = 40, counter = 0;
-
+var cluster = require('cluster'),
+	numCPUs = require('os').cpus().length,	
+	http = require('http'),
+	counter = 0, i, worker, FIB = 40;
+	
 function fib(n){
 	return n < 2 ? n : fib(n - 2) + fib(n - 1);
-}
+}	
 
 if (cluster.isMaster) {
-  	// Fork workers.
-	for (var i = 0; i < numCPUs; i++) {
-		cluster.fork();
+	for (i = 0; i < numCPUs; i++) {
+		worker = cluster.fork();
+		worker.on('message',function(msg) {
+			if(msg.cmd && msg.cmd === 'notifyReq') {
+				counter++;
+				console.log(counter);
+			}
+		});
 	}
-
-  	cluster.on('exit', function(worker, code, signal) {
-		console.log('worker ' + worker.process.pid + ' died');
-	});
 } else {
-	// Workers can share any TCP connection
-	// In this case its a HTTP server
-	http.createServer(function(req, res){
-		var result = fib(FIB);		
-		counter++;
-		console.log(counter);
-		res.end('done');
-	}).listen(4000);
+	http.createServer(function(req, res) {
+		var result = fib(FIB);
+		process.send({ cmd: 'notifyReq' });
+		res.end(result.toString());
+	}).listen(4000);	
 }
